@@ -61,7 +61,9 @@ class BansosController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit($id){
-        //
+        $data = Bansos::findOrFail($id);
+        $kecamatan = Kecamatan::all();
+        return view('pages.bansos.update', compact('data', 'kecamatan'));
     }
 
     /**
@@ -70,6 +72,22 @@ class BansosController extends Controller
     public function update(Request $request, $id)
     {
         $data = Bansos::findOrFail($id);
+
+        $request->validate([
+            'kecamatan_id' => 'required',
+            'kelurahan_id' => 'required',
+            'alamat' => 'required',
+            'link_google_map' => 'required',
+        ]);
+
+        $data->update([
+            'kecamatan_id' => $request->kecamatan_id,
+            'kelurahan_id' => $request->kelurahan_id,
+            'alamat' => $request->alamat,
+            'link_map' => $request->link_google_map
+        ]);
+
+        return redirect()->route('bansos.index')->with('success', 'Data berhasil diperbarui!');
     }
 
     /**
