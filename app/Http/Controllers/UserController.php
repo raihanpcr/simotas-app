@@ -3,33 +3,51 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Kecamatan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
     public function index()
     {
-        $datas = User::all();
+        $datas = User::with('kecamatan')->orderBy('created_at', 'desc')->paginate(5);
         return view('pages.user.data', compact('datas'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        return view('pages.user.add');
+        $kecamatan = Kecamatan::all();
+        return view('pages.user.add', compact('kecamatan'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama' => 'required',
+            'username' => 'required',
+            'password' => 'required',
+            'kecamatan_id' => 'required',
+            'kelurahan_id' => 'required',
+            'role' => 'required',
+        ]);
+
+        // dd($request->all());
+
+        $pass = Hash::make($request->password);
+        // dd($request->all());
+        User::create([
+            'name' => $request->nama,
+            'username' => $request->username,
+            'password' => $pass,
+            'password_string' => $request->password,
+            'role' => $request->role,
+            'kecamatan_id' => $request->kecamatan_id,
+            'kelurahan_id' => $request->kelurahan_id
+        ]);
+
+        return redirect()->route('user.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
     /**
@@ -46,7 +64,8 @@ class UserController extends Controller
     public function edit(string $id)
     {
         $data = User::findOrFail($id);
-        return view('pages.user.update', compact('data'));
+        $kecamatan = Kecamatan::all();
+        return view('pages.user.update', compact('data', 'kecamatan'));
     }
 
     /**
@@ -54,14 +73,38 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        $request->validate([
+            'nama' => 'required',
+            'username' => 'required',
+            'password' => 'required',
+            'kecamatan_id' => 'required',
+            'kelurahan_id' => 'required',
+            'role' => 'required',
+        ]);
+
+        $user->update([
+            'name' => $request->nama,
+            'username' => $request->username,
+            'password' => Hash::make($request->password),
+            'password_string' => $request->password,
+            'kecamatan_id' => $request->kecamatan_id,
+            'kelurahan_id' => $request->kelurahan_id,
+            'role' => $request->role,
+        ]);
+
+        return redirect()->route('user.index')->with('success', 'Data berhasil diperbarui!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $data = User::findOrFail($id);
+        $data->delete();
+
+        return redirect()->back()->with('success', 'Data berhasil dihapus.');
     }
 }

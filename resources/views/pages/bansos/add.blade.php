@@ -3,38 +3,16 @@
 @section('title', 'Beranda')
 
 @section('content')
-    <h2>Data Pengguna</h2>
+    <h2>Data Bansos</h2>
     <div class="row">
         <div class="col-md-8"> {{-- Ubah angkanya untuk menyesuaikan lebar --}}
             <div class="card shadow mb-3">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Tambah Data Pengguna</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Tambah Data Bansos</h6>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('user.store') }}">
+                    <form method="POST" action="{{ route('bansos.store') }}">
                         @csrf
-                        <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-2 col-form-label">Name <span
-                                    class="text-danger">*</span></label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="nama" id="inputtext3">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="inputtext3" class="col-sm-2 col-form-label">Username <span
-                                    class="text-danger">*</span></label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="username" id="inputtext3">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="inputtext3" class="col-sm-2 col-form-label">Password <span
-                                    class="text-danger">*</span></label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="password" id="inputtext3">
-                            </div>
-                        </div>
-
                         <div class="form-group row">
                             <label for="inputtext3" class="col-sm-2 col-form-label">Kecamatan<span
                                     class="text-danger">*</span></label>
@@ -58,15 +36,18 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="inputtext3" class="col-sm-2 col-form-label">Role<span
+                            <label for="inputtext3" class="col-sm-2 col-form-label">Alamat <span
                                     class="text-danger">*</span></label>
                             <div class="col-sm-10">
-                                <select name="role" id="role" class="form-control" required>
-                                    <option value="">Pilih Role</option>
-                                    <option value="super_admin">Super Admin</option>
-                                    <option value="kepala_dinas">Kepala Dinas</option>
-                                    <option value="kepala_desa">Kepala Desa</option>
-                                </select>
+                                <textarea name="alamat" class="form-control" name="alamat" cols="30" rows="10"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="inputtext3" class="col-sm-2 col-form-label">Link Google Map<span
+                                    class="text-danger">*</span></label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="link_google_map" id="inputtext3" required>
                             </div>
                         </div>
 

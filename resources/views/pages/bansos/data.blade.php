@@ -3,8 +3,8 @@
 @section('title', 'Beranda')
 
 @section('content')
-    <h2>Data Pengguna</h2>
-    <a href="{{ route('user.create') }}" class="btn btn-primary mb-3">Tambah Data</a>
+    <h2>Data Bantuan Sosial</h2>
+    <a href="{{ route('bansos.create') }}" class="btn btn-primary mb-3">Tambah Data</a>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Data User</h6>
@@ -14,31 +14,29 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Nama</th>
-                            <th>Username</th>
-                            <th>Password</th>
                             <th>Kecamatan</th>
                             <th>Kelurahan</th>
-                            <th>Role</th>
+                            <th>Link Google Map</th>
+                            <th>Alamat</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
 
-                        @foreach ($datas as $user)
+                        @foreach ($datas as $bansos)
                             <tr>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->username }}</td>
-                                <td>{{ $user->password_string }}</td>
-                                <td>{{ $user->kecamatan?->nama ?? '-' }}</td>
-                                <td>{{ $user->kelurahan?->nama ?? '-' }}</td>
-                                <td>{{ $user->role }}</td>
+                                <td>{{ $bansos->kecamatan?->nama ?? '-' }}</td>
+                                <td>{{ $bansos->kelurahan?->nama ?? '-' }}</td>
+                                <td><a href="{{ $bansos->link_map }}">{{ $bansos->link_map }}</a> </td>
+                                <td>{{ $bansos->alamat }}</td>
 
                                 <td>
-                                    <a href="{{ route('user.edit', $user->id) }}"><span class="btn btn-sm btn-info"><i
-                                                class="fas fa-solid fa-pen"></i></span></a>
+                                    <a href="{{ route('bansos.show', $bansos->id) }}"><span class="btn btn-sm btn-info"><i
+                                                class="fas fa-eye"></i></span></a>
+                                    <a href="{{ route('bansos.edit', $bansos->id) }}"><span
+                                            class="btn btn-sm btn-warning"><i class="fas fa-solid fa-pen"></i></span></a>
 
-                                    <form action="{{ route('user.destroy', $user->id) }}" method="POST"
+                                    <form action="{{ route('bansos.destroy', $bansos->id) }}" method="POST"
                                         style="display:inline;"
                                         onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
                                         @csrf

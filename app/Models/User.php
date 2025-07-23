@@ -20,8 +20,12 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'username',
         'password',
-        'role'
+        'password_string',
+        'role',
+        'kecamatan_id',
+        'kelurahan_id',
     ];
 
     /**
@@ -42,4 +46,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function kecamatan(){
+        return $this->belongsTo(Kecamatan::class, 'kecamatan_id');
+    }
+
+    public function kelurahan(){
+        return $this->belongsTo(Kelurahan::class, 'kelurahan_id');
+    }
 }

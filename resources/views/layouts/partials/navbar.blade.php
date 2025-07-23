@@ -49,7 +49,7 @@
             <i class="text-white fas fa-fw fa-file-alt"></i>
             <span>Laporan</span>
         </a>
-        <a class="nav-link text-white font-weight-bold" href="charts.html">
+        <a class="nav-link text-white font-weight-bold" href="{{ route('bansos.index') }}">
             <i class="text-white fas fa-fw fa-file-alt"></i>
             <span>Management Bansos</span>
         </a>

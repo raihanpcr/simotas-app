@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BansosController;
 use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\DisabilitasController;
 use App\Http\Controllers\ExportController;
@@ -42,6 +43,7 @@ Route::middleware(['auth'])->group(function () {
       Route::resource('yatim', YatimController::class);
       Route::resource('lansia', LansiaController::class);
       Route::resource('user', UserController::class);
+      Route::resource('bansos', BansosController::class);
       Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
       Route::post('/laporan', [LaporanController::class, 'show'])->name('laporan.show');
 
