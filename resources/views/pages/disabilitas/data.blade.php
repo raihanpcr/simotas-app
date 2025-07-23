@@ -11,6 +11,17 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
+                <div class="d-flex justify-content-end mb-3">
+                    <form method="GET" action="{{ route('disabilitas') }}">
+                        <div class="input-group" style="max-width: 250px;">
+                            <input type="text" name="search" class="form-control" placeholder="Cari NIK..."
+                                value="{{ request('search') }}">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="submit">Cari</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
@@ -18,6 +29,8 @@
                             <th>Nama</th>
                             <th>Tempat, Tanggal lahir</th>
                             <th>Umur</th>
+                            <th>Kecamatan</th>
+                            <th>Kelurahan</th>
                             <th>Alamat</th>
                             <th>Aksi</th>
                         </tr>
@@ -30,6 +43,8 @@
                                 <td>{{ $warga->name }}</td>
                                 <td>{{ $warga->place_of_birth }}, {{ $warga->date_of_birth }}</td>
                                 <td>{{ $warga->umur }}</td>
+                                <td>{{ $warga->kecamatan?->nama ?? '-' }}</td>
+                                <td>{{ $warga->kelurahan?->nama ?? '-' }}</td>
                                 <td>{{ $warga->alamat }}</td>
                                 <td>
                                     <a href="{{ route('lansia.edit', $warga->id) }}"><span class="btn btn-sm btn-info"><i
@@ -47,9 +62,9 @@
                                 </td>
                             </tr>
                         @endforeach
-
                     </tbody>
                 </table>
+                {{ $datas->links() }}
             </div>
         </div>
     </div>

@@ -37,7 +37,7 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+
     }
 
     /**
@@ -45,7 +45,8 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = User::findOrFail($id);
+        return view('pages.user.update', compact('data'));
     }
 
     /**

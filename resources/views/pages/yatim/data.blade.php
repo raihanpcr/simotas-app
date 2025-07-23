@@ -11,6 +11,17 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
+                <div class="d-flex justify-content-end mb-3">
+                    <form method="GET" action="{{ route('yatim.index') }}">
+                        <div class="input-group" style="max-width: 250px;">
+                            <input type="text" name="search" class="form-control" placeholder="Cari NIK..."
+                                value="{{ request('search') }}">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="submit">Cari</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>

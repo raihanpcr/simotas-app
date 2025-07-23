@@ -11,10 +11,15 @@ class LansiaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $datas = Warga::where('kategori', 'Lansia')->get();
+        $query = Warga::with('kecamatan')->where('kategori', 'Lansia');
 
+        if ($request->has('search') && $request->search != '') {
+            $query->where('nik', 'like', '%' . $request->search . '%');
+        }
+        
+        $datas = $query->orderBy('created_at', 'desc')->paginate(10)->appends($request->only('search'));
         return view('pages.lansia.data', compact('datas'));
     }
 

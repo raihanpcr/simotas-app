@@ -3,7 +3,9 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\DisabilitasController;
+use App\Http\Controllers\ExportController;
 use App\Http\Controllers\LansiaController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\YatimController;
 use Illuminate\Support\Facades\Route;
@@ -32,11 +34,19 @@ Route::middleware(['auth'])->group(function () {
       Route::put('/disabilitas/update/{id}', [DisabilitasController::class, 'update'])->name('warga.update');
       Route::delete('/disabilitas/{id}', [DisabilitasController::class, 'destroy'])->name('warga.destroy');
 
+      Route::get('/get-kelurahan', [DisabilitasController::class, 'GetKelurahan'])->name('get.kelurahan');
+
+      Route::get("/report", [LaporanController::class, 'index'])->name('report.show');
+
       // Yatim & Lansia pakai resource controller
       Route::resource('yatim', YatimController::class);
       Route::resource('lansia', LansiaController::class);
       Route::resource('user', UserController::class);
       Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+      Route::post('/laporan', [LaporanController::class, 'show'])->name('laporan.show');
+
+      //export excel
+      Route::get('/export-warga', [LaporanController::class, 'exportCsv'])->name('export.warga');
 });
 
 

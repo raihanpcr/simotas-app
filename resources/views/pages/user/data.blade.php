@@ -3,7 +3,7 @@
 @section('title', 'Beranda')
 
 @section('content')
-    <h2>Data Lansia</h2>
+    <h2>Data Pengguna</h2>
     <a href="{{ route('user.create') }}" class="btn btn-primary mb-3">Tambah Data</a>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -29,10 +29,10 @@
                                 <td>{{ $user->role }}</td>
 
                                 <td>
-                                    <a href="{{ route('lansia.edit', $user->id) }}"><span class="btn btn-sm btn-info"><i
+                                    <a href="{{ route('user.edit', $user->id) }}"><span class="btn btn-sm btn-info"><i
                                                 class="fas fa-solid fa-pen"></i></span></a>
 
-                                    <form action="{{ route('lansia.destroy', $user->id) }}" method="POST"
+                                    <form action="{{ route('user.destroy', $user->id) }}" method="POST"
                                         style="display:inline;"
                                         onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
                                         @csrf

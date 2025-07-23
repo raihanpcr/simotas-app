@@ -45,7 +45,7 @@
             <i class="text-white fas fa-fw fa-file-alt"></i>
             <span>Data Lansia</span>
         </a>
-        <a class="nav-link text-white font-weight-bold" href="charts.html">
+        <a class="nav-link text-white font-weight-bold" href="{{ route('report.show') }}">
             <i class="text-white fas fa-fw fa-file-alt"></i>
             <span>Laporan</span>
         </a>

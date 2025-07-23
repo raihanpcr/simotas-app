@@ -8,9 +8,15 @@ use Illuminate\Http\Request;
 
 class YatimController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $datas = Warga::where('kategori', 'Yatim')->get();
+        $query = Warga::with('kecamatan')->where('kategori', 'Yatim');
+
+        if ($request->has('search') && $request->search != '') {
+            $query->where('nik','like', '%' . $request->search . '%');
+        }
+
+        $datas = $query->orderBy('created_at', 'desc')->paginate(10)->appends($request->only('search'));
 
         return view('pages.yatim.data', compact('datas'));
     }
@@ -29,6 +35,7 @@ class YatimController extends Controller
      */
     public function store(Request $request)
     {
+        //validation input
         $request->validate([
             'nik' => 'required|max:16',
             'name' => 'required',
@@ -37,6 +44,7 @@ class YatimController extends Controller
             'alamat' => 'required',
         ]);
 
+        //create database
         Warga::create([
             'nik' => $request->nik,
             'name' => $request->name,

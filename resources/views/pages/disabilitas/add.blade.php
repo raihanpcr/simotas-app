@@ -13,34 +13,72 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('warga.store') }}">
                         @csrf
+
+                        {{-- input nik --}}
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-2 col-form-label">NIK <span
                                     class="text-danger">*</span></label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="nik" id="inputtext3">
+                                <input type="text" class="form-control @error('nik') is-invalid @enderror" name="nik"
+                                    id="inputtext3" value="{{ old('nik') }}">
+                                @error('nik')
+                                    <div class="invalid-feedback d-block">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                         </div>
+
+                        {{-- input nama  --}}
                         <div class="form-group row">
                             <label for="inputtext3" class="col-sm-2 col-form-label">Nama <span
                                     class="text-danger">*</span></label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="name" id="inputtext3">
+                                <input type="text" class="form-control" name="name" id="inputtext3" required>
                             </div>
                         </div>
+
+                        {{-- input tempat lahir --}}
                         <div class="form-group row">
                             <label for="inputtext3" class="col-sm-2 col-form-label">Tempat Lahir <span
                                     class="text-danger">*</span></label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="tempat_lahir" id="inputtext3">
+                                <input type="text" class="form-control" name="tempat_lahir" id="inputtext3" required>
                             </div>
                         </div>
+
+                        {{-- input tanggal lahir  --}}
                         <div class="form-group row">
                             <label for="inputtext3" class="col-sm-2 col-form-label">Tanggal Lahir <span
                                     class="text-danger">*</span></label>
                             <div class="col-sm-10">
-                                <input type="date" class="form-control" name="tanggal_lahir" id="inputtext3">
+                                <input type="date" class="form-control" name="tanggal_lahir" id="inputtext3" required>
                             </div>
                         </div>
+
+                        <div class="form-group row">
+                            <label for="inputtext3" class="col-sm-2 col-form-label">Kecamatan<span
+                                    class="text-danger">*</span></label>
+                            <div class="col-sm-10">
+                                <select name="kecamatan_id" id="kecamatan" class="form-control" required>
+                                    <option value="">Pilih Kecamatan</option>
+                                    @foreach ($kecamatan as $item)
+                                        <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Kelurahan <span class="text-danger">*</span></label>
+                            <div class="col-sm-10">
+                                <select name="kelurahan_id" id="kelurahan" class="form-control">
+                                    <option value="">Pilih Kelurahan</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        {{-- input alamat  --}}
                         <div class="form-group row">
                             <label for="inputtext3" class="col-sm-2 col-form-label">Alamat <span
                                     class="text-danger">*</span></label>
@@ -60,5 +98,31 @@
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $('#kecamatan').on('change', function() {
+            var kecamatanID = $(this).val();
 
+            $('#kelurahan').empty().append('<option value="">Loading...</option>');
+
+            if (kecamatanID) {
+                $.ajax({
+                    url: "{{ route('get.kelurahan') }}",
+                    type: "GET",
+                    data: {
+                        kecamatan_id: kecamatanID
+                    },
+                    success: function(data) {
+                        $('#kelurahan').empty().append('<option value="">Pilih Kelurahan</option>');
+                        $.each(data, function(key, value) {
+                            $('#kelurahan').append('<option value="' + value.id + '">' + value
+                                .nama + '</option>');
+                        });
+                    }
+                });
+            } else {
+                $('#kelurahan').empty().append('<option value="">Pilih Kelurahan</option>');
+            }
+        });
+    </script>
 @endsection

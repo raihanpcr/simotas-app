@@ -13,8 +13,6 @@ class AuthController extends Controller
 
     public function login(Request $request){
 
-        // dd($request->all());
-
         $request->validate([
             'username' => 'required',
             'password' => 'required',
@@ -33,8 +31,8 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        Auth::logout();                         
-        $request->session()->invalidate(); 
+        Auth::logout();
+        $request->session()->invalidate();
         $request->session()->regenerateToken();
 
         return redirect()->route('login');
