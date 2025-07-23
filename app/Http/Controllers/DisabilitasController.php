@@ -32,6 +32,7 @@ class DisabilitasController extends Controller
     public function addForm(){
         $kategori = "Disabilitas";
         $kecamatan = Kecamatan::all();
+        
         return view('pages.disabilitas.add', compact('kategori', 'kecamatan'));
     }
 
@@ -42,14 +43,16 @@ class DisabilitasController extends Controller
 
     public function edit($id){
         $data = Warga::findOrFail($id);
-        return view('pages.disabilitas.update', compact('data'));
+        $kecamatan = Kecamatan::all();
+        $kelurahan = Kelurahan::where('kecamatan_id', $data->kec_id)->get();
+        return view('pages.disabilitas.update', compact('data','kecamatan','kelurahan'));
     }
 
     public function update(Request $request, $id){
         $warga = Warga::findOrFail($id);
 
         $request->validate([
-            'nik' => 'required|unique:warga,nik' . $warga->id,
+            'nik' => 'required|unique:warga,nik,' . $id,
             'name' => 'required',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required|date',

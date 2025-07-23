@@ -47,10 +47,10 @@
                                 <td>{{ $warga->kelurahan?->nama ?? '-' }}</td>
                                 <td>{{ $warga->alamat }}</td>
                                 <td>
-                                    <a href="{{ route('lansia.edit', $warga->id) }}"><span class="btn btn-sm btn-info"><i
+                                    <a href="{{ route('warga.edit', $warga->id) }}"><span class="btn btn-sm btn-info"><i
                                                 class="fas fa-solid fa-pen"></i></span></a>
 
-                                    <form action="{{ route('lansia.destroy', $warga->id) }}" method="POST"
+                                    <form action="{{ route('warga.destroy', $warga->id) }}" method="POST"
                                         style="display:inline;"
                                         onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
                                         @csrf
@@ -67,5 +67,9 @@
                 {{ $datas->links() }}
             </div>
         </div>
+        {{-- <a href="https://maps.app.goo.gl/egnfoWZdbMx3Tehp9">Google map</a>
+        <iframe width="700" height="450" style="border:0" loading="lazy" allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade" src="https://maps.app.goo.gl/S7TbfJ2ofFsnDRjD8">
+        </iframe> --}}
     </div>
 @endsection

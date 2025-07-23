@@ -29,6 +29,8 @@
                             <th>Nama</th>
                             <th>Tempat, Tanggal lahir</th>
                             <th>Umur</th>
+                            <th>Kecamatan</th>
+                            <th>Kelurahan</th>
                             <th>Alamat</th>
                             <th>Aksi</th>
                         </tr>
@@ -41,6 +43,8 @@
                                 <td>{{ $warga->name }}</td>
                                 <td>{{ $warga->place_of_birth }}, {{ $warga->date_of_birth }}</td>
                                 <td>{{ $warga->umur }}</td>
+                                <td>{{ $warga->kecamatan?->nama ?? '-' }}</td>
+                                <td>{{ $warga->kelurahan?->nama ?? '-' }}</td>
                                 <td>{{ $warga->alamat }}</td>
                                 <td>
                                     <a href="{{ route('lansia.edit', $warga->id) }}"><span class="btn btn-sm btn-info"><i

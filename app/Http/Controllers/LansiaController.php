@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Warga;
+use App\Models\Kecamatan;
+use App\Models\Kelurahan;
 use Illuminate\Http\Request;
 
 class LansiaController extends Controller
@@ -26,17 +28,20 @@ class LansiaController extends Controller
     public function create()
     {
         $kategori = "Lansia";
-        return view('pages.lansia.add', compact('kategori'));
+        $kecamatan = Kecamatan::all();
+        return view('pages.lansia.add', compact('kategori', 'kecamatan'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'nik' => 'required|max:16',
+            'nik' => 'required|unique:warga,nik',
             'name' => 'required',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required|date',
             'alamat' => 'required',
+        ],[
+            'nik.unique' => 'NIK sudah terdaftar.',
         ]);
 
         Warga::create([
@@ -45,6 +50,8 @@ class LansiaController extends Controller
             'place_of_birth' => $request->tempat_lahir,
             'date_of_birth' => $request->tanggal_lahir,
             'umur' => Carbon::parse($request->tanggal_lahir)->age,
+            'kec_id' => $request->kecamatan_id,
+            'kel_id' => $request->kelurahan_id,
             'alamat' => $request->alamat,
             'kategori' => "Lansia"
         ]);
@@ -63,10 +70,12 @@ class LansiaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
         $data = Warga::findOrFail($id);
-        return view('pages.lansia.update', compact('data'));
+        $kecamatan = Kecamatan::all();
+        $kelurahan = Kelurahan::where('kecamatan_id', $data->kec_id)->get();
+        return view('pages.lansia.update', compact('data','kecamatan','kelurahan'));
     }
 
     /**
@@ -82,6 +91,8 @@ class LansiaController extends Controller
             'place_of_birth' => $request->tempat_lahir,
             'date_of_birth' => $request->tanggal_lahir,
             'alamat' => $request->alamat,
+            'kec_id' => $request->kecamatan_id,
+            'kel_id' => $request->kelurahan_id,
             'umur' =>  Carbon::parse($request->tanggal_lahir)->age,
         ]);
 
