@@ -4,7 +4,9 @@
 
 @section('content')
     <h2>Data Lansia</h2>
-    <a href="{{ route('lansia.create') }}" class="btn btn-primary mb-3">Tambah Data</a>
+    @can('viewAny', \App\Models\User::class)
+        <a href="{{ route('lansia.create') }}" class="btn btn-primary mb-3">Tambah Data</a>
+    @endcan
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Data Lansia</h6>
@@ -32,7 +34,9 @@
                             <th>Kecamatan</th>
                             <th>Kelurahan</th>
                             <th>Alamat</th>
-                            <th>Aksi</th>
+                            @can('viewAny', \App\Models\User::class)
+                                <th>Aksi</th>
+                            @endcan
                         </tr>
                     </thead>
                     <tbody>
@@ -46,20 +50,22 @@
                                 <td>{{ $warga->kecamatan?->nama ?? '-' }}</td>
                                 <td>{{ $warga->kelurahan?->nama ?? '-' }}</td>
                                 <td>{{ $warga->alamat }}</td>
-                                <td>
-                                    <a href="{{ route('lansia.edit', $warga->id) }}"><span class="btn btn-sm btn-info"><i
-                                                class="fas fa-solid fa-pen"></i></span></a>
+                                @can('viewAny', \App\Models\User::class)
+                                    <td>
+                                        <a href="{{ route('lansia.edit', $warga->id) }}"><span class="btn btn-sm btn-info"><i
+                                                    class="fas fa-solid fa-pen"></i></span></a>
 
-                                    <form action="{{ route('lansia.destroy', $warga->id) }}" method="POST"
-                                        style="display:inline;"
-                                        onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger">
-                                            <i class="fas fa-solid fa-trash"></i>
-                                        </button>
-                                    </form>
-                                </td>
+                                        <form action="{{ route('lansia.destroy', $warga->id) }}" method="POST"
+                                            style="display:inline;"
+                                            onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger">
+                                                <i class="fas fa-solid fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                @endcan
                             </tr>
                         @endforeach
 

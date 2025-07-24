@@ -29,23 +29,25 @@
                                 <td>{{ $bansos->kelurahan?->nama ?? '-' }}</td>
                                 <td><a href="{{ $bansos->link_map }}">{{ $bansos->link_map }}</a> </td>
                                 <td>{{ $bansos->alamat }}</td>
-
                                 <td>
                                     <a href="{{ route('bansos.show', $bansos->id) }}"><span class="btn btn-sm btn-info"><i
                                                 class="fas fa-eye"></i></span></a>
-                                    <a href="{{ route('bansos.edit', $bansos->id) }}"><span
-                                            class="btn btn-sm btn-warning"><i class="fas fa-solid fa-pen"></i></span></a>
+                                    @can('viewAny', \App\Models\User::class)
+                                        <a href="{{ route('bansos.edit', $bansos->id) }}"><span
+                                                class="btn btn-sm btn-warning"><i class="fas fa-solid fa-pen"></i></span></a>
 
-                                    <form action="{{ route('bansos.destroy', $bansos->id) }}" method="POST"
-                                        style="display:inline;"
-                                        onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger">
-                                            <i class="fas fa-solid fa-trash"></i>
-                                        </button>
-                                    </form>
+                                        <form action="{{ route('bansos.destroy', $bansos->id) }}" method="POST"
+                                            style="display:inline;"
+                                            onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger">
+                                                <i class="fas fa-solid fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    @endcan
                                 </td>
+
                             </tr>
                         @endforeach
 

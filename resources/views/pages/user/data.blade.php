@@ -4,7 +4,9 @@
 
 @section('content')
     <h2>Data Pengguna</h2>
-    <a href="{{ route('user.create') }}" class="btn btn-primary mb-3">Tambah Data</a>
+    @can('viewAny', \App\Models\User::class)
+        <a href="{{ route('user.create') }}" class="btn btn-primary mb-3">Tambah Data</a>
+    @endcan
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Data User</h6>
