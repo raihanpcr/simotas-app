@@ -7,12 +7,32 @@ use App\Models\Warga;
 use App\Models\Kecamatan;
 use App\Models\Kelurahan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class YatimController extends Controller
 {
     public function index(Request $request)
-    {
-        $query = Warga::with('kecamatan')->where('kategori', 'Yatim');
+    {   
+
+        if (Auth::user()->role == "super_admin") {
+            $query = Warga::with('kecamatan')->where('kategori', 'Yatim');
+
+        }else if (Auth::user()->role == "kepala_dinas") {
+
+            // kalau login kepala dinas
+            $kecamatan = Auth::user()->kecamatan_id;
+            $query = Warga::with('kecamatan')
+                    ->where('kategori', 'Yatim')
+                    ->where('kec_id', $kecamatan);
+
+        }elseif (Auth::user()->role == "kepala_desa") {
+
+            // kalau login kepala_desa
+            $kelurahan = Auth::user()->kelurahan_id;
+            $query = Warga::with('kecamatan')
+                    ->where('kategori', 'Yatim')
+                    ->where('kel_id', $kelurahan);
+        };
 
         if ($request->has('search') && $request->search != '') {
             $query->where('nik','like', '%' . $request->search . '%');
