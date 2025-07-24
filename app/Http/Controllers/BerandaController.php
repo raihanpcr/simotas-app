@@ -10,6 +10,8 @@ class BerandaController extends Controller
 {
     function index(){
 
+        
+
         $dataYatim = [];
         $dataLansia = [];
         $dataDisabilitas = [];

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Bansos;
 use App\Models\Kecamatan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BansosController extends Controller
 {
@@ -12,8 +13,23 @@ class BansosController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $datas = Bansos::with('kecamatan')->orderBy('created_at', 'desc')->paginate(5);
+    {   
+        if (Auth::user()->role == "super_admin") {
+            $datas = Bansos::with('kecamatan')->orderBy('created_at', 'desc')->paginate(5);
+
+        }else if (Auth::user()->role == "kepala_dinas") {
+
+            // kalau login kepala dinas
+            $kecamatan = Auth::user()->kecamatan_id;
+            $datas = Bansos::with('kecamatan')->where('kecamatan_id', $kecamatan)->orderBy('created_at', 'desc')->paginate(5);
+
+        }elseif (Auth::user()->role == "kepala_desa") {
+
+            // kalau login kepala_desa
+            $kelurahan = Auth::user()->kelurahan_id;
+            $datas = Bansos::with('kecamatan')->where('kelurahan_id', $kelurahan)->orderBy('created_at', 'desc')->paginate(5);
+        };
+        
         return view('pages.bansos.data', compact('datas'));
     }
 

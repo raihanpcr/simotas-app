@@ -58,8 +58,31 @@ class DisabilitasController extends Controller
     }
 
     public function GetKelurahan(request $request){
-        $kelurahan = Kelurahan::where('kecamatan_id', $request->kecamatan_id)->get();
-        return response()->json($kelurahan);
+        // $kelurahan = Kelurahan::where('kecamatan_id', $request->kecamatan_id)->get();
+        // return response()->json($kelurahan);
+
+
+        $user = Auth::user();
+        $kecamatanID = $request->kecamatan_id;
+
+        $kelurahan = Kelurahan::query();
+
+        if ($user->role === 'super_admin') {
+            $kelurahan->where('kecamatan_id', $kecamatanID);
+        } elseif ($user->role === 'kepala_dinas') {
+            if ($user->kecamatan_id == $kecamatanID) {
+                $kelurahan->where('kecamatan_id', $kecamatanID);
+            } else {
+                return response()->json([]);
+            }
+        } elseif ($user->role === 'kepala_desa') {
+            $kelurahan->where('id', $user->kelurahan_id)
+                    ->where('kecamatan_id', $kecamatanID);
+        } else {
+            return response()->json([]);
+        }
+
+        return response()->json($kelurahan->get());
     }
 
     public function edit($id){

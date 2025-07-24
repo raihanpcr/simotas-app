@@ -5,7 +5,7 @@
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">Simotas</div>
+        <div class="sidebar-brand-text mx-3"> SIMOTAS</div>
     </a>
 
     <!-- Divider -->
@@ -28,10 +28,10 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
 
-    <li class="nav-item">
+    <li class="nav-item active">
         <a class="nav-link text-white font-weight-bold active" href="{{ route('beranda') }}">
-            <i class="text-white fas fa-fw fa-file-alt"></i>
-            <span>Beranda</span>
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span></a>
         </a>
         <a class="nav-link text-white font-weight-bold" href="{{ route('disabilitas') }}">
             <i class="text-white fas fa-fw fa-file-alt"></i>
