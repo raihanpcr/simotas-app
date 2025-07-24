@@ -34,7 +34,11 @@
                                 <td>{{ $user->password_string }}</td>
                                 <td>{{ $user->kecamatan?->nama ?? '-' }}</td>
                                 <td>{{ $user->kelurahan?->nama ?? '-' }}</td>
-                                <td>{{ $user->role }}</td>
+                                @if ($user->role == 'kepala_desa')
+                                    <td>Admin Desa</td>
+                                @else
+                                    <td>{{ $user->role }}</td>
+                                @endif
 
                                 <td>
                                     <a href="{{ route('user.edit', $user->id) }}"><span class="btn btn-sm btn-info"><i

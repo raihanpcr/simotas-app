@@ -10,6 +10,12 @@ class UserPolicy
     /**
      * Determine whether the user can view any models.
      */
+
+    public function viewAnyUser(User $user): bool
+    {
+        return $user->hasRole(['super_admin', 'kepala']);
+    }
+
     public function viewAny(User $user): bool
     {
         return $user->role === 'super_admin';

@@ -10,7 +10,9 @@ class BerandaController extends Controller
 {
     function index(){
 
-        
+        $jmlYatimWating = 0;
+        $jmlDisabilitasWating = 0;
+        $jmlLansiaWating = 0 ;
 
         $dataYatim = [];
         $dataLansia = [];
@@ -21,6 +23,10 @@ class BerandaController extends Controller
             $jmlYatim = Warga::where('kategori','Yatim')->count();
             $jmlDisabilitas = Warga::where('kategori','Disabilitas')->count();
             $jmlLansia = Warga::where('kategori','Lansia')->count();
+
+            $jmlYatimWating = Warga::where('kategori','Yatim')->where('status','waiting')->count();
+            $jmlDisabilitasWating = Warga::where('kategori','Disabilitas')->where('status','waiting')->count();
+            $jmlLansiaWating = Warga::where('kategori','Lansia')->where('status','waiting')->count();
 
             $tahunList = Warga::selectRaw('YEAR(created_at) as tahun')
                     ->groupBy('tahun')
@@ -76,6 +82,6 @@ class BerandaController extends Controller
             }
         };        
 
-        return view('pages.home', compact('jmlYatim', 'jmlDisabilitas', 'jmlLansia', 'dataYatim', 'dataLansia', 'dataDisabilitas', 'tahunList'));
+        return view('pages.home', compact('jmlYatim', 'jmlDisabilitas', 'jmlLansia', 'dataYatim', 'dataLansia', 'dataDisabilitas', 'tahunList', 'jmlYatimWating', 'jmlDisabilitasWating', 'jmlLansiaWating'));
     }
 }

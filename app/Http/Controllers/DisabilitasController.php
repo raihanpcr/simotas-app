@@ -57,6 +57,21 @@ class DisabilitasController extends Controller
         return view('pages.disabilitas.add', compact('kategori', 'kecamatan'));
     }
 
+    public function updateStatus($id, $status)
+    {
+        $allowed = ['accept', 'rejected'];
+        if (!in_array($status, $allowed)) {
+            return redirect()->back()->with('error', 'Status tidak valid.');
+        }
+
+        $warga = Warga::findOrFail($id);
+        $warga->status = $status;
+        $warga->save();
+
+        return redirect()->back()->with('success', 'Status warga berhasil diperbarui!');
+    }
+
+
     public function GetKelurahan(request $request){
         // $kelurahan = Kelurahan::where('kecamatan_id', $request->kecamatan_id)->get();
         // return response()->json($kelurahan);
@@ -122,7 +137,13 @@ class DisabilitasController extends Controller
 
     public function store(Request $request){
 
-        // dd($request);
+        $role = Auth::user()->role;
+        
+        if ($role == "super_admin") {
+            $status = "accept";
+        }else{
+            $status = "waiting";
+        }
 
         $request->validate([
             'nik' => 'required|unique:warga,nik',
@@ -143,7 +164,8 @@ class DisabilitasController extends Controller
             'kel_id' => $request->kelurahan_id,
             'umur' => Carbon::parse($request->tanggal_lahir)->age,
             'alamat' => $request->alamat,
-            'kategori' => "Disabilitas"
+            'kategori' => "Disabilitas",
+            'status' => $status
         ]);
 
         return redirect('/disabilitas')->with('success', 'Data berhasil ditambahkan!');

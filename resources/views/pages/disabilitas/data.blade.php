@@ -4,9 +4,9 @@
 
 @section('content')
     <h2>Data Disabilitas</h2>
-    @can('viewAny', \App\Models\User::class)
+    @if (auth()->user()->role != 'kepala_dinas')
         <a href="{{ route('warga.add') }}" class="btn btn-primary mb-3">Tambah Data</a>
-    @endcan
+    @endif
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -35,6 +35,7 @@
                             <th>Kecamatan</th>
                             <th>Kelurahan</th>
                             <th>Alamat</th>
+                            <th>Status</th>
                             @can('viewAny', \App\Models\User::class)
                                 <th>Aksi</th>
                             @endcan
@@ -51,6 +52,17 @@
                                 <td>{{ $warga->kecamatan?->nama ?? '-' }}</td>
                                 <td>{{ $warga->kelurahan?->nama ?? '-' }}</td>
                                 <td>{{ $warga->alamat }}</td>
+                                <td>
+                                    @if ($warga->status === 'waiting')
+                                        <span class="badge bg-warning text-dark">Waiting</span>
+                                    @elseif ($warga->status === 'accept')
+                                        <span class="badge bg-success text-dark">Accept</span>
+                                    @elseif ($warga->status === 'rejected')
+                                        <span class="badge bg-danger text-white">Rejected</span>
+                                    @else
+                                        <span class="badge bg-secondary text-dark">{{ ucfirst($warga->status) }}</span>
+                                    @endif
+                                </td>
                                 @can('viewAny', \App\Models\User::class)
                                     <td>
                                         <a href="{{ route('warga.edit', $warga->id) }}"><span class="btn btn-sm btn-info"><i
@@ -65,6 +77,29 @@
                                                 <i class="fas fa-solid fa-trash"></i>
                                             </button>
                                         </form>
+                                        @if ($warga->status === 'waiting')
+                                            {{-- Tombol ACC --}}
+                                            <form
+                                                action="{{ route('warga.updateStatus', ['id' => $warga->id, 'status' => 'accept']) }}"
+                                                method="POST" style="display:inline;">
+                                                @csrf
+                                                @method('PUT')
+                                                <button type="submit" class="btn btn-sm btn-success" title="Terima">
+                                                    <i class="fas fa-check"></i>
+                                                </button>
+                                            </form>
+
+                                            {{-- Tombol Tolak --}}
+                                            <form
+                                                action="{{ route('warga.updateStatus', ['id' => $warga->id, 'status' => 'rejected']) }}"
+                                                method="POST" style="display:inline;">
+                                                @csrf
+                                                @method('PUT')
+                                                <button type="submit" class="btn btn-sm btn-danger" title="Tolak">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </form>
+                                        @endif
                                     </td>
                                 @endcan
                             </tr>

@@ -53,6 +53,14 @@ class LansiaController extends Controller
 
     public function store(Request $request)
     {
+        $role = Auth::user()->role;
+        
+        if ($role == "super_admin") {
+            $status = "accept";
+        }else{
+            $status = "waiting";
+        }
+
         $request->validate([
             'nik' => 'required|unique:warga,nik',
             'name' => 'required',
@@ -72,7 +80,8 @@ class LansiaController extends Controller
             'kec_id' => $request->kecamatan_id,
             'kel_id' => $request->kelurahan_id,
             'alamat' => $request->alamat,
-            'kategori' => "Lansia"
+            'kategori' => "Lansia",
+            'status' => $status
         ]);
 
         return redirect()->route('lansia.index')->with('success', 'Data berhasil ditambahkan!');

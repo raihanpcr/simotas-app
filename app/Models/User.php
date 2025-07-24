@@ -54,4 +54,13 @@ class User extends Authenticatable
     public function kelurahan(){
         return $this->belongsTo(Kelurahan::class, 'kelurahan_id');
     }
+
+    public function hasRole(array|string $roles): bool
+    {
+        if (is_string($roles)) {
+            $roles = [$roles];
+        }
+
+        return $this->roles()->whereIn('role', $roles)->exists();
+    }
 }

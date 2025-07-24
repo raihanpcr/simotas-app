@@ -58,6 +58,13 @@ class YatimController extends Controller
      */
     public function store(Request $request)
     {
+        $role = Auth::user()->role;
+        
+        if ($role == "super_admin") {
+            $status = "accept";
+        }else{
+            $status = "waiting";
+        }
         //validation input
         $request->validate([
             'nik' => 'required|max:16',
@@ -77,7 +84,8 @@ class YatimController extends Controller
             'kel_id' => $request->kelurahan_id,
             'umur' => Carbon::parse($request->tanggal_lahir)->age,
             'alamat' => $request->alamat,
-            'kategori' => "Yatim"
+            'kategori' => "Yatim",
+            'status' => $status
         ]);
 
         return redirect()->route('yatim.index')->with('success', 'Data berhasil ditambahkan!');

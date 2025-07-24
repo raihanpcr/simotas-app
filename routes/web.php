@@ -49,6 +49,9 @@ Route::middleware(['auth'])->group(function () {
 
       //export excel
       Route::get('/export-warga', [LaporanController::class, 'exportCsv'])->name('export.warga');
+
+      Route::put('/warga/status/{id}/{status}', [DisabilitasController::class, 'updateStatus'])->name('warga.updateStatus');
+
 });
 
 

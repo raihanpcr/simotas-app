@@ -65,7 +65,7 @@
                                     <option value="">Pilih Role</option>
                                     <option value="super_admin">Super Admin</option>
                                     <option value="kepala_dinas">Kepala Dinas</option>
-                                    <option value="kepala_desa">Kepala Desa</option>
+                                    <option value="kepala_desa">Admin Desa</option>
                                 </select>
                             </div>
                         </div>

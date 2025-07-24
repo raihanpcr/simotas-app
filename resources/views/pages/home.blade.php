@@ -16,9 +16,22 @@
                                 Data Disabilitas</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $jmlDisabilitas }} Jiwa</div>
                         </div>
-                        <div class="col-auto">
-                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                        </div>
+                        @if (auth()->user()->role === 'super_admin')
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-grey text-uppercase mb-1">
+                                    Menunggu Konfirmasi
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                    <span class="badge bg-warning text-dark" style="font-size: 1rem; padding: 6px 12px;">
+                                        {{ $jmlDisabilitasWating ?? 0 }}
+                                    </span>
+                                </div>
+                            </div>
+                        @else
+                            <div class="col-auto">
+                                <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -34,9 +47,23 @@
                                 Data Anak Yatim</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $jmlYatim }} Jiwa</div>
                         </div>
-                        <div class="col-auto">
-                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                        </div>
+                        @if (auth()->user()->role === 'super_admin')
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-grey text-uppercase mb-1">
+                                    Menunggu Konfirmasi
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                    <span class="badge bg-warning text-dark" style="font-size: 1rem; padding: 6px 12px;">
+                                        {{ $jmlYatimWating ?? 0 }}
+                                    </span>
+                                </div>
+                            </div>
+                        @else
+                            <div class="col-auto">
+                                <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                            </div>
+                        @endif
+
                     </div>
                 </div>
             </div>
@@ -55,12 +82,24 @@
                                 <div class="col-auto">
                                     <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ $jmlLansia }} Jiwa</div>
                                 </div>
-
                             </div>
                         </div>
-                        <div class="col-auto">
-                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                        </div>
+                        @if (auth()->user()->role === 'super_admin')
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-grey text-uppercase mb-1">
+                                    Menunggu Konfirmasi
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                    <span class="badge bg-warning text-dark" style="font-size: 1rem; padding: 6px 12px;">
+                                        {{ $jmlLansiaWating ?? 0 }}
+                                    </span>
+                                </div>
+                            </div>
+                        @else
+                            <div class="col-auto">
+                                <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
