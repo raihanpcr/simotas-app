@@ -29,7 +29,7 @@
                             <tr>
                                 <td>{{ $bansos->kecamatan?->nama ?? '-' }}</td>
                                 <td>{{ $bansos->kelurahan?->nama ?? '-' }}</td>
-                                <td><a href="{{ $bansos->link_map }}">{{ $bansos->link_map }}</a> </td>
+                                {{-- <td><a href="{{ $bansos->link_map }}">{{ $bansos->link_map }}</a> </td> --}}
                                 <td>{{ $bansos->alamat }}</td>
                                 <td>
                                     <a href="{{ route('bansos.show', $bansos->id) }}"><span class="btn btn-sm btn-info"><i
