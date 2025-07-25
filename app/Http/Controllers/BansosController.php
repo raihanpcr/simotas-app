@@ -14,16 +14,18 @@ class BansosController extends Controller
      */
     public function index()
     {   
-        if (Auth::user()->role == "super_admin") {
+        if (Auth::user()->role == "super_admin" || Auth::user()->role == "kepala_dinas") {
             $datas = Bansos::with('kecamatan')->orderBy('created_at', 'desc')->paginate(5);
 
-        }else if (Auth::user()->role == "kepala_dinas") {
+        }
+        // else if (Auth::user()->role == "kepala_dinas") {
 
-            // kalau login kepala dinas
-            $kecamatan = Auth::user()->kecamatan_id;
-            $datas = Bansos::with('kecamatan')->where('kecamatan_id', $kecamatan)->orderBy('created_at', 'desc')->paginate(5);
+        //     // kalau login kepala dinas
+        //     $kecamatan = Auth::user()->kecamatan_id;
+        //     $datas = Bansos::with('kecamatan')->where('kecamatan_id', $kecamatan)->orderBy('created_at', 'desc')->paginate(5);
 
-        }elseif (Auth::user()->role == "kepala_desa") {
+        // }
+        elseif (Auth::user()->role == "kepala_desa") {
 
             // kalau login kepala_desa
             $kelurahan = Auth::user()->kelurahan_id;
