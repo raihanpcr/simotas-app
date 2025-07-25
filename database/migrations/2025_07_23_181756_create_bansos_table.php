@@ -23,7 +23,7 @@ return new class extends Migration
             $table->foreign('kelurahan_id')->references('id')->on('kelurahan')->onDelete('set null');
 
             $table->text('alamat');
-            $table->string('link_map')->nullable();
+            $table->text('link_map')->nullable();
             $table->timestamps();
         });
     }
