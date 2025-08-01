@@ -82,14 +82,8 @@ class DisabilitasController extends Controller
 
         $kelurahan = Kelurahan::query();
 
-        if ($user->role === 'super_admin') {
+        if ($user->role === 'super_admin' || $user->role === 'kepala_dinas') {
             $kelurahan->where('kecamatan_id', $kecamatanID);
-        } elseif ($user->role === 'kepala_dinas') {
-            if ($user->kecamatan_id == $kecamatanID) {
-                $kelurahan->where('kecamatan_id', $kecamatanID);
-            } else {
-                return response()->json([]);
-            }
         } elseif ($user->role === 'kepala_desa') {
             $kelurahan->where('id', $user->kelurahan_id)
                     ->where('kecamatan_id', $kecamatanID);

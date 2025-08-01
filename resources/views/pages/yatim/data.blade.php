@@ -62,10 +62,10 @@
                                         <span class="badge bg-secondary text-dark">{{ ucfirst($warga->status) }}</span>
                                     @endif
                                 </td>
-                                @can('viewAny', \App\Models\User::class)
+                                @if (auth()->user()->role === 'kepala_dinas' || auth()->user()->role === 'super_admin')
                                     <td>
-                                        <a href="{{ route('yatim.edit', $warga->id) }}"><span class="btn btn-sm btn-info"><i
-                                                    class="fas fa-solid fa-pen"></i></span></a>
+                                        <a href="{{ route('yatim.edit', $warga->id) }}"><span
+                                                class="btn btn-sm btn-info"><i class="fas fa-solid fa-pen"></i></span></a>
 
                                         <form action="{{ route('yatim.destroy', $warga->id) }}" method="POST"
                                             style="display:inline;"
@@ -76,7 +76,7 @@
                                                 <i class="fas fa-solid fa-trash"></i>
                                             </button>
                                         </form>
-                                        @if ($warga->status === 'waiting')
+                                        @if ($warga->status === 'waiting' && auth()->user()->role === 'super_admin')
                                             {{-- Tombol ACC --}}
                                             <form
                                                 action="{{ route('warga.updateStatus', ['id' => $warga->id, 'status' => 'accept']) }}"
@@ -100,7 +100,7 @@
                                             </form>
                                         @endif
                                     </td>
-                                @endcan
+                                @endif
                             </tr>
                         @endforeach
 

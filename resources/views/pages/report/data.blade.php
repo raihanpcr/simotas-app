@@ -37,8 +37,10 @@
             </div>
         </div>
 
-        @if (auth()->user()->role != 'super_admin')
+        @if (auth()->user()->role == 'kepala_desa')
             <input type="hidden" name="kecamatan" value="{{ auth()->user()->kecamatan_id }}">
+        @else
+            <input type="hidden" name="kecamatan" value="">
         @endif
 
         {{-- Dropdown Kelurahan --}}
