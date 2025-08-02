@@ -115,7 +115,7 @@
                 <div class="card-header py-3 d-flex flex-wrap align-items-center justify-content-between gap-2">
                     <h6 class="m-0 font-weight-bold text-primary">Grafik</h6>
                     <form method="GET" action="{{ route('beranda') }}" class="d-flex align-items-center gap-2 mb-0">
-                        <label for="tahun" class="mb-0">Pilih Tahun:</label>
+
                         <select name="tahun" id="tahun" class="form-control form-control-sm w-auto"
                             onchange="this.form.submit()">
                             @foreach ($tahunList as $tahun)

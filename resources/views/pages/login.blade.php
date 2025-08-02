@@ -9,71 +9,91 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>Login</title>
 
-    <!-- Custom fonts for this template-->
+    <!-- Custom fonts -->
     <link href="{{ asset('templates/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Poppins:wght@100..900&display=swap"
         rel="stylesheet">
 
-    <!-- Custom styles for this template-->
+    <!-- Custom styles -->
     <link href="{{ asset('templates/css/sb-admin-2.min.css') }}" rel="stylesheet">
-
-    {{-- Data Tables --}}
     <link href="{{ asset('templates/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 
     <style>
-        body {
+        body.bg-gradient-info {
+            background-image: url('{{ asset('images/bg-login.jpg') }}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             font-family: 'Inter', sans-serif;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            backdrop-filter: blur(8px);
+            /* background blur effect */
+            background-color: rgba(0, 0, 0, 0.3);
+            /* semi-transparent dark overlay */
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .card {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 1rem;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
         }
     </style>
+
 </head>
 
 <body class="bg-gradient-info">
 
+    <div class="overlay"></div>
+
     <div class="container">
+        <div class="row justify-content-center align-items-center min-vh-100">
 
-        <!-- Outer Row -->
-        <div class="row justify-content-center">
+            <div class="col-xl-6 col-lg-8 col-md-10">
 
-            <div class="col-xl-6 ">
-
-                <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card o-hidden border-0 shadow-lg">
                     <div class="card-body p-0">
-                        <!-- Nested Row within Card Body -->
                         <div class="row">
-
-                            <div class="col-md-12">
+                            <div class="col-12">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Selamat Datang</h1>
                                     </div>
                                     <form class="user" method="POST" action="{{ route('validate-login') }}">
                                         @csrf
                                         <div class="form-group">
                                             <input type="text" name="username" class="form-control form-control-user"
-                                                id="exampleInputEmail" aria-describedby="emailHelp"
                                                 placeholder="Enter Username...">
                                         </div>
                                         <div class="form-group">
                                             <input type="password" name="password"
-                                                class="form-control form-control-user" id="exampleInputPassword"
-                                                placeholder="Password">
+                                                class="form-control form-control-user" placeholder="Password">
                                         </div>
-                                        <div class="form-group">
-                                            <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">Remember
-                                                    Me</label>
-                                            </div>
-                                        </div>
+
                                         <button type="submit" class="btn btn-info btn-user btn-block">Login</button>
                                     </form>
                                 </div>
@@ -81,19 +101,17 @@
                         </div>
                     </div>
                 </div>
+
             </div>
+
         </div>
     </div>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+    <!-- JS Scripts -->
+    <script src="{{ asset('templates/vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('templates/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('templates/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+    <script src="{{ asset('templates/js/sb-admin-2.min.js') }}"></script>
 
 </body>
 
