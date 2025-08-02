@@ -4,10 +4,9 @@
 
 @section('content')
     <h2>Data Bantuan Sosial</h2>
-    @if (auth()->user()->role === 'super_admin')
+    @can('viewAny', \App\Models\User::class)
         <a href="{{ route('bansos.create') }}" class="btn btn-primary mb-3">Tambah Data</a>
-    @endif
-
+    @endcan
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Data User</h6>
@@ -19,7 +18,7 @@
                         <tr>
                             <th>Kecamatan</th>
                             <th>Kelurahan</th>
-                            {{-- <th>Link Google Map</th> --}}
+                            <!-- <th>Link Google Map</th> -->
                             <th>Alamat</th>
                             <th>Aksi</th>
                         </tr>
@@ -30,15 +29,14 @@
                             <tr>
                                 <td>{{ $bansos->kecamatan?->nama ?? '-' }}</td>
                                 <td>{{ $bansos->kelurahan?->nama ?? '-' }}</td>
-                                {{-- <td><a href="{{ $bansos->link_map }}">{{ $bansos->link_map }}</a> </td> --}}
+                                <!-- <td><a href="{{ $bansos->link_map }}">{{ $bansos->link_map }}</a> </td> -->
                                 <td>{{ $bansos->alamat }}</td>
                                 <td>
                                     <a href="{{ route('bansos.show', $bansos->id) }}"><span class="btn btn-sm btn-info"><i
                                                 class="fas fa-eye"></i></span></a>
-                                    @if (auth()->user()->role === 'super_admin')
+                                    @can('viewAny', \App\Models\User::class)
                                         <a href="{{ route('bansos.edit', $bansos->id) }}"><span
-                                                class="btn btn-sm btn-warning"><i
-                                                    class="fas fa-solid fa-pen"></i></span></a>
+                                                class="btn btn-sm btn-warning"><i class="fas fa-solid fa-pen"></i></span></a>
 
                                         <form action="{{ route('bansos.destroy', $bansos->id) }}" method="POST"
                                             style="display:inline;"
@@ -49,7 +47,7 @@
                                                 <i class="fas fa-solid fa-trash"></i>
                                             </button>
                                         </form>
-                                    @endif
+                                    @endcan
                                 </td>
 
                             </tr>

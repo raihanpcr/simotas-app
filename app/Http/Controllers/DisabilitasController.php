@@ -14,16 +14,8 @@ class DisabilitasController extends Controller
     function index(Request $request){
 
         
-        if (Auth::user()->role == "super_admin") {
+        if (Auth::user()->role == "super_admin" || Auth::user()->role == "kepala_dinas") {
             $query = Warga::with('kecamatan')->where('kategori', 'Disabilitas');
-
-        }else if (Auth::user()->role == "kepala_dinas") {
-
-            // kalau login kepala dinas
-            $kecamatan = Auth::user()->kecamatan_id;
-            $query = Warga::with('kecamatan')
-                    ->where('kategori', 'Disabilitas')
-                    ->where('kec_id', $kecamatan);
 
         }elseif (Auth::user()->role == "kepala_desa") {
 
@@ -72,7 +64,7 @@ class DisabilitasController extends Controller
     }
 
 
-    public function GetKelurahan(request $request){
+  public function GetKelurahan(request $request){
         // $kelurahan = Kelurahan::where('kecamatan_id', $request->kecamatan_id)->get();
         // return response()->json($kelurahan);
 
