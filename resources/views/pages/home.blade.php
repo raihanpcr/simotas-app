@@ -112,9 +112,21 @@
         <div class="col-xl-12 col-lg-7">
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <div class="card-header py-3 d-flex flex-wrap align-items-center justify-content-between gap-2">
                     <h6 class="m-0 font-weight-bold text-primary">Grafik</h6>
+                    <form method="GET" action="{{ route('beranda') }}" class="d-flex align-items-center gap-2 mb-0">
+                        <label for="tahun" class="mb-0">Pilih Tahun:</label>
+                        <select name="tahun" id="tahun" class="form-control form-control-sm w-auto"
+                            onchange="this.form.submit()">
+                            @foreach ($tahunList as $tahun)
+                                <option value="{{ $tahun }}" {{ $tahun == $selectedYear ? 'selected' : '' }}>
+                                    {{ $tahun }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </form>
                 </div>
+
                 <!-- Card Body -->
                 <div class="card-body">
                     <div class="chart-area">
@@ -130,28 +142,28 @@
         const ctx = document.getElementById('kategoriChart').getContext('2d');
 
         const kategoriChart = new Chart(ctx, {
-            type: 'line',
+            type: 'bar',
             data: {
-                labels: {!! json_encode($tahunList) !!}, // array tahun: [2021, 2022, 2023, ...]
+                // labels: {!! json_encode($tahunList) !!}, // array tahun: [2021, 2022, 2023, ...]
                 datasets: [{
                         label: 'Yatim',
-                        data: {!! json_encode($dataYatim) !!},
+                        data: {!! json_encode($dataYatimPerBulan) !!},
                         borderColor: 'rgba(75, 192, 192, 1)',
-                        backgroundColor: 'rgba(75, 192, 192, 0.1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.7)',
                         tension: 0.4
                     },
                     {
                         label: 'Lansia',
-                        data: {!! json_encode($dataLansia) !!},
+                        data: {!! json_encode($dataLansiaPerBulan) !!},
                         borderColor: 'rgba(255, 99, 132, 1)',
-                        backgroundColor: 'rgba(255, 99, 132, 0.1)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.7)',
                         tension: 0.4
                     },
                     {
                         label: 'Disabilitas',
-                        data: {!! json_encode($dataDisabilitas) !!},
+                        data: {!! json_encode($dataDisabilitasPerBulan) !!},
                         borderColor: 'rgba(54, 162, 235, 1)',
-                        backgroundColor: 'rgba(54, 162, 235, 0.1)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.7)',
                         tension: 0.4
                     }
                 ]
