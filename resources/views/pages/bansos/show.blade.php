@@ -15,7 +15,7 @@
                 <!-- Card Body -->
                 <div class="card-body">
                     <div class="embed-responsive embed-responsive-16by9">
-                        <iframe class="embed-responsive-item" src="{{ $data->link_map }}" allowfullscreen loading="lazy"
+                    <iframe class="embed-responsive-item" src="{{ $data->link_map }}" allowfullscreen loading="lazy"
                             referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
 
@@ -33,7 +33,7 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                    <div class="chart-pie pt-4 pb-2">
+                    <div class="pt-4 pb-2">
                         <div class="row mb-2">
                             <div class="col-4 font-weight-bold">Kecamatan</div>
                             <div class="col-1">:</div>
@@ -49,7 +49,7 @@
                             <div class="col-1">:</div>
                             <div class="col-7">{{ $data->alamat }}</div>
                         </div>
-                        <div class="row mb-2">
+                        <!-- <div class="row mb-2">
                             <div class="col-4 font-weight-bold">Link Map</div>
                             <div class="col-1">:</div>
                             <div class="col-7">
@@ -57,7 +57,7 @@
                                     <i class="fas fa-map-marker-alt"></i> Lihat di Google Maps
                                 </a>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>

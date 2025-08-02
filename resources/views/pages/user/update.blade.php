@@ -79,7 +79,7 @@
                                     </option>
                                     <option value="kepala_desa"
                                         {{ old('role', $data->role) == 'kepala_desa' ? 'selected' : '' }}>
-                                        Kepala Desa
+                                        Admin Desa
                                     </option>
                                 </select>
                             </div>

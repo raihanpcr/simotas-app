@@ -16,16 +16,8 @@ class LansiaController extends Controller
      */
     public function index(Request $request)
     {
-        if (Auth::user()->role == "super_admin") {
+        if (Auth::user()->role == "super_admin" || Auth::user()->role == "kepala_dinas") {
             $query = Warga::with('kecamatan')->where('kategori', 'Lansia');
-
-        }else if (Auth::user()->role == "kepala_dinas") {
-
-            // kalau login kepala dinas
-            $kecamatan = Auth::user()->kecamatan_id;
-            $query = Warga::with('kecamatan')
-                    ->where('kategori', 'Lansia')
-                    ->where('kec_id', $kecamatan);
 
         }elseif (Auth::user()->role == "kepala_desa") {
 

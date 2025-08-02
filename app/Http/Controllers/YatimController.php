@@ -14,18 +14,10 @@ class YatimController extends Controller
     public function index(Request $request)
     {   
 
-        if (Auth::user()->role == "super_admin") {
+        if (Auth::user()->role == "super_admin" || Auth::user()->role == "kepala_dinas") {
             $query = Warga::with('kecamatan')->where('kategori', 'Yatim');
 
-        }else if (Auth::user()->role == "kepala_dinas") {
-
-            // kalau login kepala dinas
-            $kecamatan = Auth::user()->kecamatan_id;
-            $query = Warga::with('kecamatan')
-                    ->where('kategori', 'Yatim')
-                    ->where('kec_id', $kecamatan);
-
-        }elseif (Auth::user()->role == "kepala_desa") {
+         }elseif (Auth::user()->role == "kepala_desa") {
 
             // kalau login kepala_desa
             $kelurahan = Auth::user()->kelurahan_id;

@@ -18,7 +18,7 @@ class BerandaController extends Controller
         $dataLansia = [];
         $dataDisabilitas = [];
 
-        if (Auth::user()->role == "super_admin") {
+        if (Auth::user()->role == "super_admin" || Auth::user()->role == "kepala_dinas") {
             
             $jmlYatim = Warga::where('kategori','Yatim')->count();
             $jmlDisabilitas = Warga::where('kategori','Disabilitas')->count();
@@ -41,27 +41,7 @@ class BerandaController extends Controller
                 $dataDisabilitas[] = Warga::where('kategori', 'Disabilitas')->whereYear('created_at', $tahun)->count();
             }
 
-        }else if (Auth::user()->role == "kepala_dinas") {
-
-            $kecamatan = Auth::user()->kecamatan_id;
-
-            $jmlYatim = Warga::where('kategori','Yatim')->where('kec_id', $kecamatan)->count();
-            $jmlDisabilitas = Warga::where('kategori','Disabilitas')->where('kec_id', $kecamatan)->count();
-            $jmlLansia = Warga::where('kategori','Lansia')->where('kec_id', $kecamatan)->count();
-
-            $tahunList = Warga::selectRaw('YEAR(created_at) as tahun')
-                    ->groupBy('tahun')
-                    ->orderBy('tahun', 'asc')
-                    ->pluck('tahun');
-
-            foreach ($tahunList as $tahun) {
-                $dataYatim[] = Warga::where('kategori', 'Yatim')->where('kec_id', $kecamatan)->whereYear('created_at', $tahun)->count();
-                $dataLansia[] = Warga::where('kategori', 'Lansia')->where('kec_id', $kecamatan)->whereYear('created_at', $tahun)->count();
-                $dataDisabilitas[] = Warga::where('kategori', 'Disabilitas')->where('kec_id', $kecamatan)->whereYear('created_at', $tahun)->count();
-            }
-            
-
-        }elseif (Auth::user()->role == "kepala_desa") {
+       }elseif (Auth::user()->role == "kepala_desa") {
 
             // kalau login kepala_desa
             $kelurahan = Auth::user()->kelurahan_id;
