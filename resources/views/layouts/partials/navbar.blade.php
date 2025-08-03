@@ -2,11 +2,17 @@
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('beranda') }}">
-        {{-- <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-laugh-wink"></i>
-        </div> --}}
+        <div class="sidebar-brand-icon">
+            <img src="{{ asset('images/pngegg.png') }}" alt="Logo" style="height: 60px;">
+        </div>
         <div class="sidebar-brand-text mx-3"> SIMOTAS</div>
     </a>
+
+    {{-- <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('beranda') }}">
+        <div class="sidebar-brand-icon rotate-n-15">
+            <i class="fas fa-laugh-wink"></i>
+        </div>
+    </a> --}}
 
     <!-- Divider -->
     <hr class="sidebar-divider my-0">

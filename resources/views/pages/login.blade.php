@@ -81,6 +81,8 @@
                             <div class="col-12">
                                 <div class="p-5">
                                     <div class="text-center">
+                                        <img src="{{ asset('images/pngegg.png') }}" alt="Logo"
+                                            style="height: 80px; margin-bottom: 15px;">
                                         <h1 class="h4 text-gray-900 mb-4">Selamat Datang</h1>
                                     </div>
                                     <form class="user" method="POST" action="{{ route('validate-login') }}">
