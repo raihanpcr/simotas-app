@@ -64,7 +64,7 @@ class DisabilitasController extends Controller
     }
 
 
-  public function GetKelurahan(request $request){
+    public function GetKelurahan(request $request){
         // $kelurahan = Kelurahan::where('kecamatan_id', $request->kecamatan_id)->get();
         // return response()->json($kelurahan);
 

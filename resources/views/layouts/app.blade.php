@@ -75,12 +75,12 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Klik "logout" Untuk Keluar Sistem</div>
+                <div class="modal-body">Klik "Keluar" Untuk Keluar Sistem</div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <button class="btn btn-primary" type="submit">Logout</button>
+                        <button class="btn btn-primary" type="submit">Keluar</button>
                     </form>
                 </div>
             </div>

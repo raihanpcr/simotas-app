@@ -54,11 +54,11 @@
                                 <td>{{ $warga->alamat }}</td>
                                 <td>
                                     @if ($warga->status === 'waiting')
-                                        <span class="badge bg-warning text-dark">Waiting</span>
+                                        <span class="badge bg-warning text-dark">Menunggu</span>
                                     @elseif ($warga->status === 'accept')
-                                        <span class="badge bg-success text-dark">Accept</span>
+                                        <span class="badge bg-success text-dark">Diterima</span>
                                     @elseif ($warga->status === 'rejected')
-                                        <span class="badge bg-danger text-white">Rejected</span>
+                                        <span class="badge bg-danger text-white">Ditolak</span>
                                     @else
                                         <span class="badge bg-secondary text-dark">{{ ucfirst($warga->status) }}</span>
                                     @endif
